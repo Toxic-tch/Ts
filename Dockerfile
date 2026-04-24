@@ -11,7 +11,6 @@ RUN apt update && apt install -y \
     npm \
     && rm -rf /var/lib/apt/lists/*
 
-# Create directory
 RUN mkdir -p /etc/pterodactyl
 WORKDIR /etc/pterodactyl
 
@@ -19,7 +18,7 @@ WORKDIR /etc/pterodactyl
 RUN curl -L https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_amd64 -o wings
 RUN chmod +x wings
 
-# Copy config + app
+# Copy files
 COPY config.yml /etc/pterodactyl/config.yml
 COPY index.js /etc/pterodactyl/index.js
 

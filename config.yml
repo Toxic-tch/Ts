@@ -3,6 +3,8 @@ uuid: f375ea85-a8da-4429-93e5-ef1ac8138f2a
 token_id: 96RhJiIhnHNzCAHE
 token: 3fLpdh0xisZ7gWp0rr5DaRaSqinbnJ2PaFRZktmrmqog9bFSWmGAEmSuh7WEML0f
 
+remote: "https://kycyy7-5080.csb.app"
+
 api:
   host: 0.0.0.0
   port: 8080
@@ -18,6 +20,11 @@ system:
   backup_directory: /tmp/pterodactyl/backups
   tmp_directory: /tmp
   timezone: UTC
+  sftp:
+    bind_address: 0.0.0.0
+    bind_port: 2022
+
+allowed_mounts: []
 
 docker:
   network:

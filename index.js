@@ -12,27 +12,28 @@ wings.on("close", (code) => {
   console.log(`Wings exited with code ${code}`);
 });
 
-// Optional: Serveo tunnel (your command)
+// Start Serveo tunnel (auto URL)
 const tunnel = spawn("ssh", [
-  "-o", "StrictHostKeyChecking=no",
-  "-R", "443:localhost:8080",
+  "-o",
+  "StrictHostKeyChecking=no",
+  "-R",
+  "80:localhost:8080",
   "serveo.net"
 ]);
 
 tunnel.stdout.on("data", (data) => {
-  console.log(`Tunnel: ${data}`);
+  console.log("🌍 PUBLIC URL:");
+  console.log(data.toString());
 });
 
 tunnel.stderr.on("data", (data) => {
-  console.error(`Tunnel Error: ${data}`);
+  console.error("Tunnel error:", data.toString());
 });
 
-// Simple HTTP server (required by Render)
-const server = http.createServer((req, res) => {
+// Keep Render alive
+http.createServer((req, res) => {
   res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("Wings is running\n");
-});
-
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  res.end("Wings running\n");
+}).listen(PORT, () => {
+  console.log("Server running on port " + PORT);
 });

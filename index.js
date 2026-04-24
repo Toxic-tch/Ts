@@ -4,16 +4,13 @@ const { spawn } = require("child_process");
 const PORT = process.env.PORT || 8080;
 
 // Start Wings
-const wings = spawn("/etc/pterodactyl/wings", [], {
+spawn("/etc/pterodactyl/wings", [], {
   stdio: "inherit"
 });
 
-wings.on("close", (code) => {
-  console.log(`Wings exited with code ${code}`);
-});
-
-// Start Serveo tunnel (auto URL)
+// ✅ FIXED Serveo tunnel (no TTY error + shows URL)
 const tunnel = spawn("ssh", [
+  "-T", // ✅ disable pseudo-terminal (fix error)
   "-o",
   "StrictHostKeyChecking=no",
   "-R",
@@ -27,13 +24,12 @@ tunnel.stdout.on("data", (data) => {
 });
 
 tunnel.stderr.on("data", (data) => {
-  console.error("Tunnel error:", data.toString());
+  console.log(data.toString()); // Serveo prints URL here sometimes
 });
 
-// Keep Render alive
+// Keep service alive
 http.createServer((req, res) => {
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("Wings running\n");
+  res.end("Wings running");
 }).listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });

@@ -1,0 +1,25 @@
+debug: false
+uuid: f375ea85-a8da-4429-93e5-ef1ac8138f2a
+token_id: 96RhJiIhnHNzCAHE
+token: 3fLpdh0xisZ7gWp0rr5DaRaSqinbnJ2PaFRZktmrmqog9bFSWmGAEmSuh7WEML0f
+
+api:
+  host: 0.0.0.0
+  port: 8080
+  ssl:
+    enabled: false
+  upload_limit: 100
+
+system:
+  root_directory: /tmp/pterodactyl
+  log_directory: /tmp/pterodactyl/logs
+  data: /tmp/pterodactyl/volumes
+  archive_directory: /tmp/pterodactyl/archives
+  backup_directory: /tmp/pterodactyl/backups
+  tmp_directory: /tmp
+  timezone: UTC
+
+docker:
+  network:
+    name: pterodactyl_nw
+    driver: bridge
